@@ -11,7 +11,6 @@ A flutter plugin for retrieving and writing audio tags/metadata from audio files
 | flac        | Vorbis comment        |
 
 ## Installation
-
 Run in terminal:
 
 ```bash
