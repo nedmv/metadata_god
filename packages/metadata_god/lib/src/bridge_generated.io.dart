@@ -373,3 +373,6 @@ class wire_Metadata extends ffi.Struct {
 
   external ffi.Pointer<ffi.Double> replay_gain_track_peak;
 }
+
+typedef DartPostCObjectFnType = ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
+typedef DartPort = ffi.Int64;
