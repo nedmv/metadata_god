@@ -100,13 +100,11 @@ class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire> {
 
 // Section: api_fill_to_wire
 
-  void _api_fill_to_wire_box_autoadd_metadata(
-      Metadata apiObj, ffi.Pointer<wire_Metadata> wireObj) {
+  void _api_fill_to_wire_box_autoadd_metadata(Metadata apiObj, ffi.Pointer<wire_Metadata> wireObj) {
     _api_fill_to_wire_metadata(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_box_autoadd_picture(
-      Picture apiObj, ffi.Pointer<wire_Picture> wireObj) {
+  void _api_fill_to_wire_box_autoadd_picture(Picture apiObj, ffi.Pointer<wire_Picture> wireObj) {
     _api_fill_to_wire_picture(apiObj, wireObj.ref);
   }
 
@@ -124,10 +122,13 @@ class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire> {
     wireObj.genre = api2wire_opt_String(apiObj.genre);
     wireObj.picture = api2wire_opt_box_autoadd_picture(apiObj.picture);
     wireObj.file_size = api2wire_opt_box_autoadd_u64(apiObj.fileSize);
+    wireObj.replay_gain_album_gain = api2wire_opt_box_autoadd_f64(apiObj.replayGainAlbumGain);
+    wireObj.replay_gain_album_peak = api2wire_opt_box_autoadd_f64(apiObj.replayGainAlbumPeak);
+    wireObj.replay_gain_track_gain = api2wire_opt_box_autoadd_f64(apiObj.replayGainTrackGain);
+    wireObj.replay_gain_track_peak = api2wire_opt_box_autoadd_f64(apiObj.replayGainTrackPeak);
   }
 
-  void _api_fill_to_wire_opt_box_autoadd_picture(
-      Picture? apiObj, ffi.Pointer<wire_Picture> wireObj) {
+  void _api_fill_to_wire_opt_box_autoadd_picture(Picture? apiObj, ffi.Pointer<wire_Picture> wireObj) {
     if (apiObj != null) _api_fill_to_wire_box_autoadd_picture(apiObj, wireObj);
   }
 
@@ -150,18 +151,13 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
   late final dartApi = DartApiDl(init_frb_dart_api_dl);
 
   /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  MetadataGodWire(ffi.DynamicLibrary dynamicLibrary)
-      : _lookup = dynamicLibrary.lookup;
+  MetadataGodWire(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
-  MetadataGodWire.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+  MetadataGodWire.fromLookup(ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup) : _lookup = lookup;
 
   void store_dart_post_cobject(
     DartPostCObjectFnType ptr,
@@ -171,11 +167,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _store_dart_post_cobjectPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
-          'store_dart_post_cobject');
-  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
-      .asFunction<void Function(DartPostCObjectFnType)>();
+  late final _store_dart_post_cobjectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>('store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr.asFunction<void Function(DartPostCObjectFnType)>();
 
   Object get_dart_object(
     int ptr,
@@ -185,11 +178,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _get_dart_objectPtr =
-      _lookup<ffi.NativeFunction<ffi.Handle Function(ffi.UintPtr)>>(
-          'get_dart_object');
-  late final _get_dart_object =
-      _get_dart_objectPtr.asFunction<Object Function(int)>();
+  late final _get_dart_objectPtr = _lookup<ffi.NativeFunction<ffi.Handle Function(ffi.UintPtr)>>('get_dart_object');
+  late final _get_dart_object = _get_dart_objectPtr.asFunction<Object Function(int)>();
 
   void drop_dart_object(
     int ptr,
@@ -199,11 +189,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _drop_dart_objectPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>(
-          'drop_dart_object');
-  late final _drop_dart_object =
-      _drop_dart_objectPtr.asFunction<void Function(int)>();
+  late final _drop_dart_objectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.UintPtr)>>('drop_dart_object');
+  late final _drop_dart_object = _drop_dart_objectPtr.asFunction<void Function(int)>();
 
   int new_dart_opaque(
     Object handle,
@@ -213,11 +200,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_dart_opaquePtr =
-      _lookup<ffi.NativeFunction<ffi.UintPtr Function(ffi.Handle)>>(
-          'new_dart_opaque');
-  late final _new_dart_opaque =
-      _new_dart_opaquePtr.asFunction<int Function(Object)>();
+  late final _new_dart_opaquePtr = _lookup<ffi.NativeFunction<ffi.UintPtr Function(ffi.Handle)>>('new_dart_opaque');
+  late final _new_dart_opaque = _new_dart_opaquePtr.asFunction<int Function(Object)>();
 
   int init_frb_dart_api_dl(
     ffi.Pointer<ffi.Void> obj,
@@ -227,11 +211,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _init_frb_dart_api_dlPtr =
-      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>(
-          'init_frb_dart_api_dl');
-  late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+  late final _init_frb_dart_api_dlPtr = _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>('init_frb_dart_api_dl');
+  late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
 
   void wire_read_metadata(
     int port_,
@@ -243,12 +224,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_read_metadataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_read_metadata');
-  late final _wire_read_metadata = _wire_read_metadataPtr
-      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_read_metadataPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_read_metadata');
+  late final _wire_read_metadata = _wire_read_metadataPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_write_metadata(
     int port_,
@@ -262,13 +239,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_write_metadataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_Metadata>)>>('wire_write_metadata');
-  late final _wire_write_metadata = _wire_write_metadataPtr.asFunction<
-      void Function(
-          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_Metadata>)>();
+  late final _wire_write_metadataPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_Metadata>)>>('wire_write_metadata');
+  late final _wire_write_metadata = _wire_write_metadataPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_Metadata>)>();
 
   ffi.Pointer<ffi.Double> new_box_autoadd_f64_0(
     double value,
@@ -278,11 +250,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_box_autoadd_f64_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Double> Function(ffi.Double)>>(
-          'new_box_autoadd_f64_0');
-  late final _new_box_autoadd_f64_0 = _new_box_autoadd_f64_0Ptr
-      .asFunction<ffi.Pointer<ffi.Double> Function(double)>();
+  late final _new_box_autoadd_f64_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Double> Function(ffi.Double)>>('new_box_autoadd_f64_0');
+  late final _new_box_autoadd_f64_0 = _new_box_autoadd_f64_0Ptr.asFunction<ffi.Pointer<ffi.Double> Function(double)>();
 
   ffi.Pointer<ffi.Int32> new_box_autoadd_i32_0(
     int value,
@@ -292,31 +261,22 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_box_autoadd_i32_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int32> Function(ffi.Int32)>>(
-          'new_box_autoadd_i32_0');
-  late final _new_box_autoadd_i32_0 = _new_box_autoadd_i32_0Ptr
-      .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
+  late final _new_box_autoadd_i32_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int32> Function(ffi.Int32)>>('new_box_autoadd_i32_0');
+  late final _new_box_autoadd_i32_0 = _new_box_autoadd_i32_0Ptr.asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
 
   ffi.Pointer<wire_Metadata> new_box_autoadd_metadata_0() {
     return _new_box_autoadd_metadata_0();
   }
 
-  late final _new_box_autoadd_metadata_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_Metadata> Function()>>(
-          'new_box_autoadd_metadata_0');
-  late final _new_box_autoadd_metadata_0 = _new_box_autoadd_metadata_0Ptr
-      .asFunction<ffi.Pointer<wire_Metadata> Function()>();
+  late final _new_box_autoadd_metadata_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_Metadata> Function()>>('new_box_autoadd_metadata_0');
+  late final _new_box_autoadd_metadata_0 = _new_box_autoadd_metadata_0Ptr.asFunction<ffi.Pointer<wire_Metadata> Function()>();
 
   ffi.Pointer<wire_Picture> new_box_autoadd_picture_0() {
     return _new_box_autoadd_picture_0();
   }
 
-  late final _new_box_autoadd_picture_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<wire_Picture> Function()>>(
-          'new_box_autoadd_picture_0');
-  late final _new_box_autoadd_picture_0 = _new_box_autoadd_picture_0Ptr
-      .asFunction<ffi.Pointer<wire_Picture> Function()>();
+  late final _new_box_autoadd_picture_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_Picture> Function()>>('new_box_autoadd_picture_0');
+  late final _new_box_autoadd_picture_0 = _new_box_autoadd_picture_0Ptr.asFunction<ffi.Pointer<wire_Picture> Function()>();
 
   ffi.Pointer<ffi.Uint16> new_box_autoadd_u16_0(
     int value,
@@ -326,11 +286,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_box_autoadd_u16_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint16> Function(ffi.Uint16)>>(
-          'new_box_autoadd_u16_0');
-  late final _new_box_autoadd_u16_0 = _new_box_autoadd_u16_0Ptr
-      .asFunction<ffi.Pointer<ffi.Uint16> Function(int)>();
+  late final _new_box_autoadd_u16_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint16> Function(ffi.Uint16)>>('new_box_autoadd_u16_0');
+  late final _new_box_autoadd_u16_0 = _new_box_autoadd_u16_0Ptr.asFunction<ffi.Pointer<ffi.Uint16> Function(int)>();
 
   ffi.Pointer<ffi.Uint64> new_box_autoadd_u64_0(
     int value,
@@ -340,11 +297,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_box_autoadd_u64_0Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
-          'new_box_autoadd_u64_0');
-  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr
-      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
+  late final _new_box_autoadd_u64_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>('new_box_autoadd_u64_0');
+  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr.asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -354,12 +308,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_uint_8_list_0Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_uint_8_list> Function(
-              ffi.Int32)>>('new_uint_8_list_0');
-  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
-      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+  late final _new_uint_8_list_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr.asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
   void free_WireSyncReturn(
     WireSyncReturn ptr,
@@ -369,11 +319,8 @@ class MetadataGodWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _free_WireSyncReturnPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturn)>>(
-          'free_WireSyncReturn');
-  late final _free_WireSyncReturn =
-      _free_WireSyncReturnPtr.asFunction<void Function(WireSyncReturn)>();
+  late final _free_WireSyncReturnPtr = _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturn)>>('free_WireSyncReturn');
+  late final _free_WireSyncReturn = _free_WireSyncReturnPtr.asFunction<void Function(WireSyncReturn)>();
 }
 
 class _Dart_Handle extends ffi.Opaque {}
@@ -417,8 +364,12 @@ class wire_Metadata extends ffi.Struct {
   external ffi.Pointer<wire_Picture> picture;
 
   external ffi.Pointer<ffi.Uint64> file_size;
-}
 
-typedef DartPostCObjectFnType = ffi.Pointer<
-    ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
-typedef DartPort = ffi.Int64;
+  external ffi.Pointer<ffi.Double> replay_gain_album_gain;
+
+  external ffi.Pointer<ffi.Double> replay_gain_album_peak;
+
+  external ffi.Pointer<ffi.Double> replay_gain_track_gain;
+
+  external ffi.Pointer<ffi.Double> replay_gain_track_peak;
+}

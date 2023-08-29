@@ -33,6 +33,10 @@ typedef struct wire_Metadata {
   struct wire_uint_8_list *genre;
   struct wire_Picture *picture;
   uint64_t *file_size;
+  double *replay_gain_album_gain;
+  double *replay_gain_album_peak;
+  double *replay_gain_track_gain;
+  double *replay_gain_track_peak;
 } wire_Metadata;
 
 typedef struct DartCObject *WireSyncReturn;

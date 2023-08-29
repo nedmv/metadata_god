@@ -10,10 +10,8 @@ import 'package:uuid/uuid.dart';
 import 'bridge_generated.dart';
 export 'bridge_generated.dart';
 
-class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire>
-    with FlutterRustBridgeSetupMixin {
-  MetadataGodPlatform(FutureOr<WasmModule> dylib)
-      : super(MetadataGodWire(dylib)) {
+class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire> with FlutterRustBridgeSetupMixin {
+  MetadataGodPlatform(FutureOr<WasmModule> dylib) : super(MetadataGodWire(dylib)) {
     setupMixinConstructor();
   }
   Future<void> setup() => inner.init;
@@ -70,7 +68,11 @@ class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire>
       api2wire_opt_box_autoadd_i32(raw.year),
       api2wire_opt_String(raw.genre),
       api2wire_opt_box_autoadd_picture(raw.picture),
-      api2wire_opt_box_autoadd_u64(raw.fileSize)
+      api2wire_opt_box_autoadd_u64(raw.fileSize),
+      api2wire_opt_box_autoadd_f64(raw.replayGainAlbumGain),
+      api2wire_opt_box_autoadd_f64(raw.replayGainAlbumPeak),
+      api2wire_opt_box_autoadd_f64(raw.replayGainTrackGain),
+      api2wire_opt_box_autoadd_f64(raw.replayGainTrackPeak)
     ];
   }
 
@@ -106,7 +108,10 @@ class MetadataGodPlatform extends FlutterRustBridgeBase<MetadataGodWire>
 
   @protected
   List<dynamic> api2wire_picture(Picture raw) {
-    return [api2wire_String(raw.mimeType), api2wire_uint_8_list(raw.data)];
+    return [
+      api2wire_String(raw.mimeType),
+      api2wire_uint_8_list(raw.data)
+    ];
   }
 
   @protected
@@ -131,24 +136,17 @@ external MetadataGodWasmModule get wasmModule;
 class MetadataGodWasmModule implements WasmModule {
   external Object /* Promise */ call([String? moduleName]);
   external MetadataGodWasmModule bind(dynamic thisArg, String moduleName);
-  external dynamic /* void */ wire_read_metadata(
-      NativePortType port_, String file);
+  external dynamic /* void */ wire_read_metadata(NativePortType port_, String file);
 
-  external dynamic /* void */ wire_write_metadata(
-      NativePortType port_, String file, List<dynamic> metadata);
+  external dynamic /* void */ wire_write_metadata(NativePortType port_, String file, List<dynamic> metadata);
 }
 
 // Section: WASM wire connector
 
-class MetadataGodWire
-    extends FlutterRustBridgeWasmWireBase<MetadataGodWasmModule> {
-  MetadataGodWire(FutureOr<WasmModule> module)
-      : super(WasmModule.cast<MetadataGodWasmModule>(module));
+class MetadataGodWire extends FlutterRustBridgeWasmWireBase<MetadataGodWasmModule> {
+  MetadataGodWire(FutureOr<WasmModule> module) : super(WasmModule.cast<MetadataGodWasmModule>(module));
 
-  void wire_read_metadata(NativePortType port_, String file) =>
-      wasmModule.wire_read_metadata(port_, file);
+  void wire_read_metadata(NativePortType port_, String file) => wasmModule.wire_read_metadata(port_, file);
 
-  void wire_write_metadata(
-          NativePortType port_, String file, List<dynamic> metadata) =>
-      wasmModule.wire_write_metadata(port_, file, metadata);
+  void wire_write_metadata(NativePortType port_, String file, List<dynamic> metadata) => wasmModule.wire_write_metadata(port_, file, metadata);
 }

@@ -24,6 +24,10 @@ pub struct Metadata {
     pub genre: Option<String>,
     pub picture: Option<Picture>,
     pub file_size: Option<u64>,
+    pub replay_gain_album_gain: Option<f64>,
+    pub replay_gain_album_peak: Option<f64>,
+    pub replay_gain_track_gain: Option<f64>,
+    pub replay_gain_track_peak: Option<f64>,
 }
 
 pub fn read_metadata(file: String) -> Result<Metadata> {
@@ -57,6 +61,10 @@ pub fn read_metadata(file: String) -> Result<Metadata> {
             None => None,
         }),
         file_size: Some(21231_u64),
+        replay_gain_album_gain: get_f64_from_tag(&tag, ItemKey::ReplayGainAlbumGain),
+        replay_gain_album_peak: get_f64_from_tag(&tag, ItemKey::ReplayGainAlbumPeak),
+        replay_gain_track_gain: get_f64_from_tag(&tag, ItemKey::ReplayGainTrackGain),
+        replay_gain_track_peak: get_f64_from_tag(&tag, ItemKey::ReplayGainTrackPeak),
     })
 }
 
@@ -127,4 +135,12 @@ fn get_tag_for_file(file: &str) -> Result<(TaggedFile, Tag)> {
     }
     .to_owned();
     Ok((tagged_file, tag))
+}
+
+fn get_f64_from_tag(tag: &Tag, key: ItemKey) -> Option<f64> {
+    tag.get(&key).and_then(|s| {
+            match s.value() {
+                ItemValue::Text(t) => f64::try_from(t).ok()
+            }
+        })
 }

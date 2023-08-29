@@ -1,2 +1,3 @@
 [workspace]
 members = ["packages/metadata_god/native"]
+resolver = "2"
