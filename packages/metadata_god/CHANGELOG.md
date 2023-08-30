@@ -1,3 +1,7 @@
+## 0.5.1
+
+ - **FEAT**: get replay gain information from songs.
+
 ## 0.5.0+3
 
  - **FIX**: please melos.
