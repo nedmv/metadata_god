@@ -140,7 +140,8 @@ fn get_tag_for_file(file: &str) -> Result<(TaggedFile, Tag)> {
 fn get_f64_from_tag(tag: &Tag, key: ItemKey) -> Option<f64> {
     tag.get(&key).and_then(|s| {
             match s.value() {
-                ItemValue::Text(t) => f64::try_from(t).ok()
+                ItemValue::Text(t) => t.split(" ").next().and_then(|f| f.parse::<f64>().ok()),
+                _ => None
             }
         })
 }

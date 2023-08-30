@@ -71,6 +71,22 @@ class ReaderDataView extends StatelessWidget {
           const DataCell(Text("year")),
           DataCell(Text(metadata.year.toString())),
         ]),
+        DataRow(cells: [
+          const DataCell(Text("ReplayGainAlbumGain")),
+          DataCell(Text(metadata.replayGainAlbumGain.toString())),
+        ]),
+        DataRow(cells: [
+          const DataCell(Text("ReplayGainAlbumPeak")),
+          DataCell(Text(metadata.replayGainAlbumPeak.toString())),
+        ]),
+        DataRow(cells: [
+          const DataCell(Text("ReplayGainTrackGain")),
+          DataCell(Text(metadata.replayGainTrackGain.toString())),
+        ]),
+        DataRow(cells: [
+          const DataCell(Text("ReplayGainTrackPeak")),
+          DataCell(Text(metadata.replayGainTrackPeak.toString())),
+        ]),
       ],
     );
   }
