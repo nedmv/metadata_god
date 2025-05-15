@@ -1,5 +1,8 @@
 use anyhow::Result;
-use lofty::{Accessor, AudioFile, PictureType, Tag, TaggedFile, TaggedFileExt, MimeType, TagExt, ItemKey, ItemValue, TagItem};
+use lofty::{
+    Accessor, AudioFile, ItemKey, ItemValue, MimeType, PictureType, Tag, TagExt, TagItem,
+    TaggedFile, TaggedFileExt,
+};
 
 #[derive(Debug)]
 pub struct Picture {
@@ -39,13 +42,12 @@ pub fn read_metadata(file: String) -> Result<Metadata> {
         title: tag.title().and_then(|s| Some(s.to_string())),
         duration_ms: Some(tagged_file.properties().duration().as_millis() as f64),
         album: tag.album().and_then(|s| Some(s.to_string())),
-        album_artist: tag.get(&ItemKey::AlbumArtist).and_then(|s| {
-                match s.value() {
-                    ItemValue::Text(t) => Some(t.to_string()),
-                    _ => None
-                }
-            }
-        ),
+        album_artist: tag
+            .get(&ItemKey::AlbumArtist)
+            .and_then(|s| match s.value() {
+                ItemValue::Text(t) => Some(t.to_string()),
+                _ => None,
+            }),
         artist: tag.artist().and_then(|s| Some(s.to_string())),
         track_number: tag.track().map(|f| f as u16),
         track_total: tag.track_total().map(|f| f as u16),
@@ -78,7 +80,10 @@ pub fn write_metadata(file: String, metadata: Metadata) -> Result<()> {
         tag.set_album(metadata.album.unwrap());
     }
     if metadata.album_artist.is_some() {
-        tag.insert(TagItem::new(ItemKey::AlbumArtist, ItemValue::Text(metadata.album_artist.unwrap())));
+        tag.insert(TagItem::new(
+            ItemKey::AlbumArtist,
+            ItemValue::Text(metadata.album_artist.unwrap()),
+        ));
     }
     if metadata.artist.is_some() {
         tag.set_artist(metadata.artist.unwrap());
@@ -138,10 +143,8 @@ fn get_tag_for_file(file: &str) -> Result<(TaggedFile, Tag)> {
 }
 
 fn get_f64_from_tag(tag: &Tag, key: ItemKey) -> Option<f64> {
-    tag.get(&key).and_then(|s| {
-            match s.value() {
-                ItemValue::Text(t) => t.split(" ").next().and_then(|f| f.parse::<f64>().ok()),
-                _ => None
-            }
-        })
+    tag.get(&key).and_then(|s| match s.value() {
+        ItemValue::Text(t) => t.split(" ").next().and_then(|f| f.parse::<f64>().ok()),
+        _ => None,
+    })
 }
