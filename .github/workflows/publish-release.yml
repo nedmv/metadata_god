@@ -18,9 +18,9 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
+      - uses: bluefireteam/melos-action@v3
       - uses: goto-bus-stop/setup-zig@v2
       - uses: KyleMayes/install-llvm-action@v1
         with:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Artifacts
         if: inputs.dry_run == 'true'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Libraries
           path: platform-build/
